@@ -54,7 +54,7 @@ describe('VueQuery', () => {
       expect($vm.find('bar')).length.to.be(3)
     })
 
-    it('finds with invalid name', () => {
+    it('doesnt find non-existing name', () => {
       expect($vm.find('cuckoo')).to.be.empty
     })
   })
