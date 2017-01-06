@@ -21,8 +21,8 @@ Then, import it:
 
 ``` js
 import VueQuery from 'vuequery'
-// You can also use an alias
-import VueQuery as $ from 'vuequery'
+// or, god forbid
+import $ from 'vuequery'
 ```
 
 ### Usage
