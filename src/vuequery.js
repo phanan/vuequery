@@ -154,7 +154,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery}   selector
      * @return {Array.<VueQuery>}
      */
-    nextAll (selector) {
+    nextAll (selector = null) {
       return $(siblingsAllWithSort(vm, selector, true))
     },
 
@@ -165,7 +165,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    nextUntil (until, filter) {
+    nextUntil (until = null, filter = null) {
       return $(siblingsUntilWithSort(vm, until, filter, true))
     },
 
@@ -174,7 +174,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parent (selector) {
+    parent (selector = null) {
       if (isRoot(vm)) {
         return null
       }
@@ -187,7 +187,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parents (selector) {
+    parents (selector = null) {
       const _parents = component => {
         if (isRoot(component)) {
           return []
@@ -212,7 +212,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    parentsUntil (until, filter) {
+    parentsUntil (until = null, filter = null) {
       const _parentsUntil = component => {
         if (isRoot(component)) {
           return []
@@ -239,7 +239,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    prev (selector) {
+    prev (selector = null) {
       return $(siblingsWithSort(vm, selector, false))
     },
 
@@ -248,7 +248,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    prevAll (selector) {
+    prevAll (selector = null) {
       return $(siblingsAllWithSort(vm, selector, false))
     },
 
@@ -259,7 +259,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    prevUntil (until, filter) {
+    prevUntil (until = null, filter = null) {
       return $(siblingsUntilWithSort(vm, until, filter, false))
     },
 
@@ -268,7 +268,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    siblings (selector) {
+    siblings (selector = null) {
       const children = rawSiblings(vm, selector)
       const index = children.indexOf(vm)
       if (index > -1) {
