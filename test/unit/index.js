@@ -34,6 +34,12 @@ describe('VueQuery', () => {
     }).$mount())
   })
 
+  describe('common', () => {
+    it('doesnt init on a VueQuery instance', () => {
+      expect($($vm)).to.equal($vm)
+    })
+  })
+
   describe('children()', () => {
     it('matches existing children', () => {
       expect($vm.children()).length.to.be(1) // <qux/>

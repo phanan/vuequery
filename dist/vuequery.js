@@ -107,6 +107,11 @@ var $ = function $(vm) {
     return null;
   }
 
+  // Avoid double encapsulation
+  if (vm._isVueQuery) {
+    return vm;
+  }
+
   if (!vm._isVue) {
     (0, _utils2.default)('Can\'t init on a non-Vue component', vm);
     return null;
@@ -256,7 +261,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery}   selector
      * @return {Array.<VueQuery>}
      */
-    nextAll: function nextAll(selector) {
+    nextAll: function nextAll() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       return $((0, _helpers.siblingsAllWithSort)(vm, selector, true));
     },
 
@@ -268,7 +275,10 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    nextUntil: function nextUntil(until, filter) {
+    nextUntil: function nextUntil() {
+      var until = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
       return $((0, _helpers.siblingsUntilWithSort)(vm, until, filter, true));
     },
 
@@ -278,7 +288,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parent: function parent(selector) {
+    parent: function parent() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       if ((0, _helpers.isRoot)(vm)) {
         return null;
       }
@@ -292,7 +304,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parents: function parents(selector) {
+    parents: function parents() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       var _parents = function _parents(component) {
         if ((0, _helpers.isRoot)(component)) {
           return [];
@@ -318,7 +332,10 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    parentsUntil: function parentsUntil(until, filter) {
+    parentsUntil: function parentsUntil() {
+      var until = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
       var _parentsUntil = function _parentsUntil(component) {
         if ((0, _helpers.isRoot)(component)) {
           return [];
@@ -346,7 +363,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    prev: function prev(selector) {
+    prev: function prev() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       return $((0, _helpers.siblingsWithSort)(vm, selector, false));
     },
 
@@ -356,7 +375,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    prevAll: function prevAll(selector) {
+    prevAll: function prevAll() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       return $((0, _helpers.siblingsAllWithSort)(vm, selector, false));
     },
 
@@ -368,7 +389,10 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    prevUntil: function prevUntil(until, filter) {
+    prevUntil: function prevUntil() {
+      var until = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
       return $((0, _helpers.siblingsUntilWithSort)(vm, until, filter, false));
     },
 
@@ -378,7 +402,9 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    siblings: function siblings(selector) {
+    siblings: function siblings() {
+      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
       var children = (0, _helpers.rawSiblings)(vm, selector);
       var index = children.indexOf(vm);
       if (index > -1) {

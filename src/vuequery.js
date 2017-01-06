@@ -19,6 +19,11 @@ const $ = vm => {
     return null
   }
 
+  // Avoid double encapsulation
+  if (vm._isVueQuery) {
+    return vm
+  }
+
   if (!vm._isVue) {
     warn(`Can't init on a non-Vue component`, vm)
     return null
