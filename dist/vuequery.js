@@ -118,7 +118,7 @@ var $ = function $(vm) {
   }
 
   if (!(0, _helpers.isRoot)(vm) && !vm.$options.name) {
-    (0, _utils2.default)('Non-root component must have a `name` option', vm);
+    (0, _utils2.default)('Non-root component should have a `name` option', vm);
     return null;
   }
 
@@ -153,9 +153,7 @@ var $ = function $(vm) {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    closest: function closest() {
-      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
+    closest: function closest(selector) {
       if ((0, _helpers.matches)(vm, selector)) {
         return $(vm);
       }
@@ -170,13 +168,11 @@ var $ = function $(vm) {
 
 
     /**
-     * Get the descendants of the current component, optionally filtered by a selector.
+     * Get the descendants of the current component, filtered by a selector.
      * @param  {string|VueComponent|VueQuery} selector [description]
      * @return {Array.<VueQuery>}
      */
-    find: function find() {
-      var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
+    find: function find(selector) {
       var _find = function _find(component) {
         var collected = [];
 
@@ -600,14 +596,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var warn = function warn(msg, vm) {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || typeof console === 'undefined') {
     return;
   }
 
   if (vm.$options && vm.$options.__file) {
     msg += ' at ' + vm.$options.__file;
   }
-  console.error('[VueQuery] ' + msg);
+  console.warn('[VueQuery] ' + msg);
 };
 
 exports.default = warn;

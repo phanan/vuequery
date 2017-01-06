@@ -30,7 +30,7 @@ const $ = vm => {
   }
 
   if (!isRoot(vm) && !vm.$options.name) {
-    warn('Non-root component must have a `name` option', vm)
+    warn('Non-root component should have a `name` option', vm)
     return null
   }
 
@@ -62,7 +62,7 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    closest (selector = null) {
+    closest (selector) {
       if (matches(vm, selector)) {
         return $(vm)
       }
@@ -76,11 +76,11 @@ const $ = vm => {
     },
 
     /**
-     * Get the descendants of the current component, optionally filtered by a selector.
+     * Get the descendants of the current component, filtered by a selector.
      * @param  {string|VueComponent|VueQuery} selector [description]
      * @return {Array.<VueQuery>}
      */
-    find (selector = null) {
+    find (selector) {
       const _find = component => {
         let collected = []
 
