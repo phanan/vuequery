@@ -1,3 +1,3 @@
-import $ from './vuequery'
+import $ from "./vuequery";
 
-module.exports = $
+module.exports = $;

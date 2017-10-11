@@ -1,4 +1,4 @@
-import warn from './utils'
+import warn from "./utils";
 import {
   isRoot,
   matches,
@@ -7,31 +7,31 @@ import {
   siblingsWithSort,
   siblingsUntilWithSort,
   siblingsAllWithSort
-} from './helpers'
+} from "./helpers";
 
 const $ = vm => {
   if (Array.isArray(vm)) {
     // If the argument is an array, we VueQuery'fy the elements.
-    return vm.map(c => $(c))
+    return vm.map(c => $(c));
   }
 
   if (!vm) {
-    return null
+    return null;
   }
 
   // Avoid double encapsulation
   if (vm._isVueQuery) {
-    return vm
+    return vm;
   }
 
   if (!vm._isVue) {
-    warn(`Can't init on a non-Vue component`, vm)
-    return null
+    warn(`Can't init on a non-Vue component`, vm);
+    return null;
   }
 
   if (!isRoot(vm) && !vm.$options.name) {
-    warn('Non-root component should have a `name` option', vm)
-    return null
+    warn("Non-root component should have a `name` option", vm);
+    return null;
   }
 
   return {
@@ -52,8 +52,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    children (selector = null) {
-      return $(rawChildren(vm, selector))
+    children(selector = null) {
+      return $(rawChildren(vm, selector));
     },
 
     /**
@@ -62,17 +62,17 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    closest (selector) {
+    closest(selector) {
       if (matches(vm, selector)) {
-        return $(vm)
+        return $(vm);
       }
 
       if (!vm.$parent) {
-        return null
+        return null;
       }
 
-      const $parent = $(vm.$parent)
-      return $parent ? $parent.closest(selector) : null
+      const $parent = $(vm.$parent);
+      return $parent ? $parent.closest(selector) : null;
     },
 
     /**
@@ -80,25 +80,25 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector [description]
      * @return {Array.<VueQuery>}
      */
-    find (selector) {
+    find(selector) {
       const _find = component => {
-        let collected = []
+        let collected = [];
 
         if (!component.$children || !component.$children.length) {
-          return []
+          return [];
         }
 
         component.$children.forEach(c => {
           if (matches(c, selector)) {
-            collected.push(c)
+            collected.push(c);
           }
-          collected = collected.concat(_find(c))
-        })
+          collected = collected.concat(_find(c));
+        });
 
-        return collected
-      }
+        return collected;
+      };
 
-      return $(_find(vm))
+      return $(_find(vm));
     },
 
     /**
@@ -106,21 +106,21 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery}  selector
      * @return {Boolean}
      */
-    has (selector) {
+    has(selector) {
       if (!vm.$children || !vm.$children.length) {
-        return false
+        return false;
       }
 
       for (let i = 0, j = vm.$children.length; i < j; ++i) {
         if (matches(vm.$children[i], selector)) {
-          return true
+          return true;
         }
-        const $c = $(vm.$children[i])
-        if (!$c) break
-        return $c.has(selector)
+        const $c = $(vm.$children[i]);
+        if (!$c) break;
+        return $c.has(selector);
       }
 
-      return false
+      return false;
     },
 
     /**
@@ -130,18 +130,18 @@ const $ = vm => {
      * @param  {Array|string|VueComponent|VueQuery}  selector
      * @return {Boolean}
      */
-    is (selector) {
+    is(selector) {
       if (Array.isArray(selector)) {
         for (let i = 0, j = selector.length; i < j; ++i) {
           if (matches(vm, selector[i])) {
-            return true
+            return true;
           }
         }
 
-        return false
+        return false;
       }
 
-      return matches(vm, selector)
+      return matches(vm, selector);
     },
 
     /**
@@ -150,8 +150,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery}   selector
      * @return {?VueQuery}
      */
-    next (selector = null) {
-      return $(siblingsWithSort(vm, selector, true))
+    next(selector = null) {
+      return $(siblingsWithSort(vm, selector, true));
     },
 
     /**
@@ -159,8 +159,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery}   selector
      * @return {Array.<VueQuery>}
      */
-    nextAll (selector = null) {
-      return $(siblingsAllWithSort(vm, selector, true))
+    nextAll(selector = null) {
+      return $(siblingsAllWithSort(vm, selector, true));
     },
 
     /**
@@ -170,8 +170,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    nextUntil (until = null, filter = null) {
-      return $(siblingsUntilWithSort(vm, until, filter, true))
+    nextUntil(until = null, filter = null) {
+      return $(siblingsUntilWithSort(vm, until, filter, true));
     },
 
     /**
@@ -179,12 +179,12 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parent (selector = null) {
+    parent(selector = null) {
       if (isRoot(vm)) {
-        return null
+        return null;
       }
 
-      return matches(vm.$parent, selector) ? $(vm.$parent) : null
+      return matches(vm.$parent, selector) ? $(vm.$parent) : null;
     },
 
     /**
@@ -192,22 +192,22 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    parents (selector = null) {
+    parents(selector = null) {
       const _parents = component => {
         if (isRoot(component)) {
-          return []
+          return [];
         }
 
-        let collected = []
+        let collected = [];
         if (matches(component.$parent, selector)) {
-          collected.push(component.$parent)
+          collected.push(component.$parent);
         }
 
-        collected = collected.concat(_parents(component.$parent))
-        return collected
-      }
+        collected = collected.concat(_parents(component.$parent));
+        return collected;
+      };
 
-      return $(_parents(vm))
+      return $(_parents(vm));
     },
 
     /**
@@ -217,25 +217,25 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    parentsUntil (until = null, filter = null) {
+    parentsUntil(until = null, filter = null) {
       const _parentsUntil = component => {
         if (isRoot(component)) {
-          return []
+          return [];
         }
 
-        let collected = []
+        let collected = [];
         if (until && matches(component.$parent, until)) {
-          return collected
+          return collected;
         }
         if (matches(component.$parent, filter)) {
-          collected.push(component.$parent)
+          collected.push(component.$parent);
         }
 
-        collected = collected.concat(_parentsUntil(component.$parent))
-        return collected
-      }
+        collected = collected.concat(_parentsUntil(component.$parent));
+        return collected;
+      };
 
-      return $(_parentsUntil(vm))
+      return $(_parentsUntil(vm));
     },
 
     /**
@@ -244,8 +244,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {?VueQuery}
      */
-    prev (selector = null) {
-      return $(siblingsWithSort(vm, selector, false))
+    prev(selector = null) {
+      return $(siblingsWithSort(vm, selector, false));
     },
 
     /**
@@ -253,8 +253,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    prevAll (selector = null) {
-      return $(siblingsAllWithSort(vm, selector, false))
+    prevAll(selector = null) {
+      return $(siblingsAllWithSort(vm, selector, false));
     },
 
     /**
@@ -264,8 +264,8 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} filter
      * @return {Array.<VueQuery>}
      */
-    prevUntil (until = null, filter = null) {
-      return $(siblingsUntilWithSort(vm, until, filter, false))
+    prevUntil(until = null, filter = null) {
+      return $(siblingsUntilWithSort(vm, until, filter, false));
     },
 
     /**
@@ -273,16 +273,16 @@ const $ = vm => {
      * @param  {string|VueComponent|VueQuery} selector
      * @return {Array.<VueQuery>}
      */
-    siblings (selector = null) {
-      const children = rawSiblings(vm, selector)
-      const index = children.indexOf(vm)
+    siblings(selector = null) {
+      const children = rawSiblings(vm, selector);
+      const index = children.indexOf(vm);
       if (index > -1) {
-        children.splice(index, 1)
+        children.splice(index, 1);
       }
 
-      return $(children)
+      return $(children);
     }
-  }
-}
+  };
+};
 
-export default $
+export default $;
