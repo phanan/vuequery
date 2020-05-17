@@ -1,11 +1,8 @@
-const warn = (msg, vm) => {
+const warn = (msg: string): void => {
   if (process.env.NODE_ENV === 'production' || typeof console === 'undefined') {
     return
   }
 
-  if (vm.$options && vm.$options.__file) {
-    msg += ` at ${vm.$options.__file}`
-  }
   console.warn(`[VueQuery] ${msg}`)
 }
 
