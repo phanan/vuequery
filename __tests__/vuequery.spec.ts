@@ -1,4 +1,5 @@
 const globalVue = require('vue/dist/vue.js')
+import { VueQuery } from '../types'
 import $ from '../src/vuequery'
 
 describe('VueQuery', () => {

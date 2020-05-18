@@ -6,11 +6,22 @@
 
 ## Installation & Usage
 
+> This plugin is only tested for Vue 2.
+
 ### Installation
 
-In a browser, just include `vuequery.min.js` as a script and a `window.VueQuery` function should be ready at your finger tip.
+#### Browser
+Include `vuequery.min.js` as a script:
 
-In a modular environment, install VueQuery with `npm` or `yarn`:
+```html
+<script src="dist/vuequery.min.js"></script>
+```
+
+Now `VueQuery` should be avaiable as a global  function.
+
+#### Node.js
+
+First, require VueQuery as a dependency with `npm` or `yarn`:
 
 ``` bash
 npm install vuequery
@@ -21,13 +32,13 @@ Then, import it:
 
 ``` js
 import VueQuery from 'vuequery'
-// or, god forbid
+// You can also alias the import as $ for a jQuery-like experience
 import $ from 'vuequery'
 ```
 
 ### Usage
 
-Similar to jQuery, calling `VueQuery()` on a VueComponent returns a VueQuery instance, which exposes several API's to let you traverse through Vue's component tree.
+Similar to jQuery, calling `VueQuery()` on a Vue component returns a VueQuery instance which exposes several API's to let you traverse through Vue's component tree.
 
 ``` js
 // assuming we're currently in a Vue component context
@@ -53,8 +64,8 @@ $vm.prev('foo').children()[0].find('bar')
 **Description**: Get the children of the current component, optionally filtered by a `selector`, which can be either
 
 * a string, in which case it will match the components by name. Obviously, for this to work, your components should have the `name` option. This is a good Vue practice anyway.
-* a VueComponent instance
-* a VueQuery instance, in which case it will match the encapsulated VueComponent instance
+* a Vue instance
+* a VueQuery instance, in which case it will match the encapsulated Vue instance
 
 **Return Values**: `Array.<VueQuery>|[]`
 
