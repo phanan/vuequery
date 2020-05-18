@@ -1,8 +1,8 @@
-type Selector = string | Vue | VueQuery
+export type Selector = string | Vue | VueQuery
 
-type SortDirection = 'Ascending' | 'Descending'
+export type SortDirection = 'Ascending' | 'Descending'
 
-interface VueQuery {
+export interface VueQuery {
   vm: Vue
   _isVueQuery: true
 
@@ -89,3 +89,5 @@ interface VueQuery {
    */
   siblings(selector?: Selector): VueQuery[]
 }
+
+export default function $(vm: Vue | VueQuery | (Vue | VueQuery)[]): VueQuery | VueQuery[]

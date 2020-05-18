@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { VueQuery, Selector } from '../types'
 
 import {
   isRoot,

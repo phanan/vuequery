@@ -1,7 +1,8 @@
-import Vue from "vue";
+import Vue from 'vue'
+import { Selector, VueQuery, SortDirection } from '../types'
 
 export function isVueQuery(selector: Selector): selector is VueQuery {
-  return (selector as VueQuery)._isVueQuery === true;
+  return (selector as VueQuery)._isVueQuery === true
 }
 
 /**
@@ -13,34 +14,34 @@ export function isVueQuery(selector: Selector): selector is VueQuery {
  */
 export const matches = (vm: Vue, selector?: Selector | null): boolean => {
   if (!selector) {
-    return true;
+    return true
   }
 
   if (selector instanceof String || typeof selector === 'string') {
-    return vm.$options.name === selector;
+    return vm.$options.name === selector
   }
 
   if (isVueQuery(selector)) {
-    return selector.vm === vm;
+    return selector.vm === vm
   }
 
-  return selector === vm;
-};
+  return selector === vm
+}
 
 /**
  * Get all children of a Vue component, optionally filtered by a selector.
  */
 export const rawChildren = (vm: Vue, selector?: Selector | null): Vue[] => {
-  const collected: Vue[] = [];
+  const collected: Vue[] = []
 
   vm.$children.forEach((child) => {
     if (matches(child, selector)) {
-      collected.push(child);
+      collected.push(child)
     }
-  });
+  })
 
-  return collected;
-};
+  return collected
+}
 
 /**
  * Get all siblings of a Vue component, optionally filtered by a selector.
@@ -52,28 +53,28 @@ export const rawSiblings = (
   withSelf = true
 ): Vue[] => {
   if (isRoot(vm)) {
-    return [];
+    return []
   }
 
-  const collected = rawChildren(vm.$parent, selector);
+  const collected = rawChildren(vm.$parent, selector)
 
   if (!withSelf) {
-    const index = collected.indexOf(vm);
+    const index = collected.indexOf(vm)
 
     if (index > -1) {
-      collected.splice(index, 1);
+      collected.splice(index, 1)
     }
   }
 
-  return collected;
-};
+  return collected
+}
 
 /**
  * Check if a Vue component is the root instance.
  */
 export const isRoot = (vm: Vue): boolean => {
-  return vm.$root === vm;
-};
+  return vm.$root === vm
+}
 
 /**
  * Get the first sibling of a Vue component filtered by a selector.
@@ -83,28 +84,28 @@ export const siblingsWithSort = (
   selector: Selector | null,
   direction: SortDirection
 ): Vue | null => {
-  const siblings = rawSiblings(vm);
+  const siblings = rawSiblings(vm)
 
   if (!siblings.length) {
-    return null;
+    return null
   }
 
-  const i = siblings.indexOf(vm);
+  const i = siblings.indexOf(vm)
 
   if (direction === "Ascending") {
     if (i === siblings.length - 1) {
-      return null;
+      return null
     }
 
-    return matches(siblings[i + 1], selector) ? siblings[i + 1] : null;
+    return matches(siblings[i + 1], selector) ? siblings[i + 1] : null
   }
 
   if (i === 0) {
-    return null;
+    return null
   }
 
-  return matches(siblings[i - 1], selector) ? siblings[i - 1] : null;
-};
+  return matches(siblings[i - 1], selector) ? siblings[i - 1] : null
+}
 
 /**
  * Get all siblings of a Vue component filtered by a selector.
@@ -114,18 +115,18 @@ export const siblingsAllWithSort = (
   selector: Selector | null,
   direction: SortDirection
 ): Vue[] => {
-  const siblings = rawSiblings(vm, selector);
+  const siblings = rawSiblings(vm, selector)
 
   if (!siblings.length) {
-    return [];
+    return []
   }
 
-  const i = siblings.indexOf(vm);
+  const i = siblings.indexOf(vm)
 
   return direction === "Ascending"
     ? siblings.slice(i + 1)
-    : siblings.slice(0, i).reverse();
-};
+    : siblings.slice(0, i).reverse()
+}
 
 /**
  * Get all siblings of a Vue component filtered by a "filter" selector, and up to but
@@ -137,33 +138,33 @@ export const siblingsUntilWithSort = (
   filter: Selector | undefined,
   direction: SortDirection
 ): Vue[] => {
-  let siblings = rawSiblings(vm);
+  let siblings = rawSiblings(vm)
 
   if (!siblings.length) {
-    return [];
+    return []
   }
 
   if (direction === "Descending") {
-    siblings = siblings.reverse();
+    siblings = siblings.reverse()
   }
 
-  siblings = siblings.slice(siblings.indexOf(vm) + 1);
+  siblings = siblings.slice(siblings.indexOf(vm) + 1)
 
   if (!until) {
-    return siblings;
+    return siblings
   }
 
-  const collected = [];
+  const collected = []
 
   for (let i = 0, j = siblings.length; i < j; ++i) {
     if (matches(siblings[i], until)) {
-      break;
+      break
     }
 
     if (matches(siblings[i], filter)) {
-      collected.push(siblings[i]);
+      collected.push(siblings[i])
     }
   }
 
-  return collected;
-};
+  return collected
+}

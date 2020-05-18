@@ -1,3 +1,3 @@
 import $ from './vuequery'
 
-module.exports = $
+export default $
