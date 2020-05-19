@@ -1,6 +1,6 @@
 {
   "name": "vuequery",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Traverse Vue's component tree with ease",
   "main": "dist/vuequery.min.js",
   "scripts": {
