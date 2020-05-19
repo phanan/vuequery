@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export type Selector = string | Vue | VueQuery
 
 export type SortDirection = 'Ascending' | 'Descending'

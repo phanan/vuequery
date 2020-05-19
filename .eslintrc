@@ -6,5 +6,9 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/ban-ts-ignore": 0
   }
 }

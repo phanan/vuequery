@@ -57,7 +57,7 @@ const $ = (vm: Vue | VueQuery | (Vue | VueQuery)[]): VueQuery | VueQuery[] => {
     },
 
     find (selector: Selector): VueQuery[] {
-      const _find = (component: Vue) => {
+      const _find = (component: Vue): Vue[] => {
         let collected: Vue[] = []
 
         if (!component.$children || !component.$children.length) {
@@ -156,7 +156,7 @@ const $ = (vm: Vue | VueQuery | (Vue | VueQuery)[]): VueQuery | VueQuery[] => {
           return []
         }
 
-        let collected: Vue[] = []
+        const collected: Vue[] = []
 
         if (until && matches(component.$parent, until)) {
           return collected
