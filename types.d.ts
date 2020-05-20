@@ -92,4 +92,4 @@ export interface VueQuery {
   siblings(selector?: Selector): VueQuery[]
 }
 
-export default function $(vm: Vue | VueQuery | (Vue | VueQuery)[]): VueQuery | VueQuery[]
+export default function $(vm: Vue | VueQuery | (Vue | VueQuery)[] | any): VueQuery | VueQuery[]

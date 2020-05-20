@@ -9,6 +9,7 @@
   },
   "rules": {
     "@typescript-eslint/member-delimiter-style": 0,
-    "@typescript-eslint/ban-ts-ignore": 0
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/no-explicit-any": 0
   }
 }

@@ -12,7 +12,7 @@ import {
   isVueQuery
 } from './helpers'
 
-const $ = (vm: Vue | VueQuery | (Vue | VueQuery)[]): VueQuery | VueQuery[] => {
+const $ = (vm: Vue | VueQuery | (Vue | VueQuery)[] | any): VueQuery | VueQuery[] => {
   if (Array.isArray(vm)) {
     // If the argument is an array, we VueQuery'fy the elements.
     return vm.map((c: Vue | VueQuery): VueQuery => {
